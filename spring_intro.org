@@ -1,0 +1,131 @@
+#+TITLE:     An Short Introduction to Spring Framework
+#+AUTHOR:    Hai Qian
+#+EMAIL:     qianh1@gpopivotal
+#+DATE:      2013-07-12 Fri
+
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t ltoc:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+
+#+BEAMER_FRAME_LEVEL: 2
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+latex_header: \mode<beamer>{\usetheme{Madrid}}
+
+* Introduction
+  
+** Introduction
+The Spring Framework is an open source application framework and
+inversion of control container for the Java platform.
+:PROPERTIES:
+:BEAMER_envargs: [<+->]
+:END:
+- Java and XML configurations
+- Core module: dependency injection
+- Important module: Aspect oriented programming
+- Many modules
+- IDE: Spring tool suite (based on Eclipse)
+
+** Structure of Spring Framework
+#+begin_center
+#+LaTeX:\includegraphics[width=0.9\textwidth]{/Users/qianh1/workspace/spring/spring_structure.png}
+#+end_center
+
+* Dependency Injection
+
+** Dependency Injection (DI)
+
+Dependency injection is a software design pattern that allows the
+removal of hard-coded dependencies and makes it possible to change
+them, whether at run-time or compile-time. 
+
+** Example of DI (step 1)
+#+begin_src java
+public abstract class Shape {
+
+    public abstract double getArea();
+    
+    public void printInfo() {
+        System.out.printf("%s with area of %,.2f%n",
+                          getClass().getSimpleName(),
+                          getArea();
+    }
+}
+#+end_src
+
+** Example of DI (step 2)
+Concrete class 1
+#+begin_src java
+public class Rectangular extends Shape {
+    private double length, width;
+
+    public Rectangular () {}
+
+    public Rectangular (double length, double width) {
+        setLength(length);
+        setWidth(width);
+    }
+#+end_src 
+
+** Example of DI (step 2 continued)
+#+begin_src java
+    public double getLength() {
+        return (length);
+    }
+    public void setLength (double length) {
+        this.length = length;
+    }
+    public double getWidth() {
+        return (width);
+    }
+    public void setWidth (double width) {
+        this.width = width;
+    }
+    public double getArea () {
+        return (length * width)
+    }
+}
+#+end_src
+
+** Example of DI (step 2 continued)
+Concrete class 2
+#+begin_src java
+public class Circle extends Shape {
+    private double radius = 1.0;
+
+    public Circle () {}
+
+    public Circle (double radius) {
+        setRadius (radius);
+    }
+#+end_src 
+
+** Example of DI (step 2 continued)
+#+begin_src java
+    public double getRadius () {
+        return (radius);
+    }
+
+    public void setRadius (double radius) {
+        this.radius = radius;
+    }
+
+    public double getArea () {
+        return (Math.PI * radius * radius);
+    }
+}
+#+end_src 
+
