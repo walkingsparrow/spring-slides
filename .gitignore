@@ -1,0 +1,5 @@
+auto/
+*.pdf
+*.tex
+.predictive/
+.juliahistory
