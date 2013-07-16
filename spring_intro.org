@@ -26,6 +26,20 @@
 #+latex_header: \mode<beamer>{\usetheme{Madrid}}
 
 * Introduction
+
+** Outline
+%To compile in emacs, use the command: C-c, C-e
+\begin{itemize}
+\item\framebox{Introduction}
+
+\item Inversion of Control (IoC)
+
+\item Aspect Oriented Programming (AOP)
+
+\item Conclusion
+
+\end{itemize}
+
   
 ** Introduction
 The Spring Framework is an open source application framework and
@@ -39,12 +53,53 @@ inversion of control container for the Java platform.
 - Many modules
 - IDE: Spring tool suite (based on Eclipse)
 
+
 ** Structure of Spring Framework
-#+begin_center
-#+LaTeX:\includegraphics[width=0.9\textwidth]{/Users/qianh1/workspace/spring/spring_structure.png}
-#+end_center
+
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{~/spring-slides/spring_structure.png}
+\end{center}
+
+
+
+** One Slide Summary
+\begin{itemize}
+\item{Challenge: A common design pattern is the “big ball of mud”.}
+
+\item{A BIG BALL OF MUD is haphazardly structured, sprawling, sloppy, duct-tape and bailing wire, spaghetti code jungle. --Brian Foote and Joseph Yoder}
+
+\item{Goal of Spring: Prevent a big ball of mud. }  
+
+\end{itemize}
+
+
+** Motivation
+Why was Spring created?
+\begin{itemize}
+
+\item{Bad design patterns makes code hard to learn, maintain, and change.}
+
+\item{Bad design patterns are easy to fall into (deadlines, cost, ect). }
+
+\item{By enforcing the good design patterns, the code is better off in the long term.  } 
+
+\end{itemize}
+
 
 * Dependency Injection
+** Outline
+\begin{itemize}
+\item Introduction
+
+\item \framebox{Inversion of Control (IoC)}
+
+\item Aspect Oriented Programming (AOP)
+
+\item Conclusion
+
+\end{itemize}
+
 
 ** Dependency Injection (DI)
 
@@ -59,8 +114,12 @@ inversion of control container for the Java platform.
   removal of hard-coded dependencies and makes it possible to change
   them, whether at run-time or compile-time. 
 
+
 ** Example of DI (step 1)
-#+begin_src java
+
+
+
+\begin{verbatim}
 public abstract class Shape {
 
     public abstract double getArea();
@@ -71,11 +130,17 @@ public abstract class Shape {
                           getArea();
     }
 }
-#+end_src
+\end{verbatim}
+
+
+
 
 ** Example of DI (step 2)
+
+
 Concrete class 1
-#+begin_src java
+
+\begin{verbatim}
 public class Rectangular extends Shape {
     private double length, width;
 
@@ -85,10 +150,16 @@ public class Rectangular extends Shape {
         setLength(length);
         setWidth(width);
     }
-#+end_src 
+\end{verbatim}
+
+
+
 
 ** Example of DI (step 2 continued)
-#+begin_src java
+
+
+
+\begin{verbatim}
     public double getLength() {
         return (length);
     }
@@ -105,11 +176,17 @@ public class Rectangular extends Shape {
         return (length * width)
     }
 }
-#+end_src
+\end{verbatim}
+
+
+
 
 ** Example of DI (step 2 continued)
+
+
 Concrete class 2
-#+begin_src java
+
+\begin{verbatim}
 public class Circle extends Shape {
     private double radius = 1.0;
 
@@ -118,10 +195,16 @@ public class Circle extends Shape {
     public Circle (double radius) {
         setRadius (radius);
     }
-#+end_src 
+\end{verbatim}
+
+
+
 
 ** Example of DI (step 2 continued)
-#+begin_src java
+
+
+
+\begin{verbatim}
     public double getRadius () {
         return (radius);
     }
@@ -134,7 +217,130 @@ public class Circle extends Shape {
         return (Math.PI * radius * radius);
     }
 }
-#+end_src 
+\end{verbatim}
+
+
+
+* Aspect Oriented Programming
+
+** Outline
+\begin{itemize}
+\item Introduction
+
+\item Inversion of Control (IoC)
+
+\item \framebox{Aspect Oriented Programming (AOP)}
+
+\item Conclusion
+
+\end{itemize}
+
+
+
+** Cross-Cutting Concerns
+
+What are cross-cutting concerns?
+\begin{itemize}
+\item{Similar high-level functionality that is part of many functions (such as
+logging or input validation).}
+
+\item{Adding this functionality to each function is cumbersome, causes
+code clutter, and promotes code duplication. }  
+\end{itemize}
+
+
+** Example of Similar Functionality
+
+\begin{verbatim}
+public class C1 {
+   public void setAttributeB(int  a){
+    system.out.println(”Entering method setAttributeB");
+    ...
+    }
+...
+}
+
+public class C2 {
+   public void setAttributeC(int  a){
+    system.out.println("Entering method setAttributeC");
+    ...
+    }
+...
+}
+
+\end{verbatim}
+
+
+
+
+** Aspect Oriented Programming AOP
+Spring can intercept method execution and add additional
+functionality.  
+
+\begin{itemize}
+\item Can add functionality before method execution, after execution, or after thrown exceptions.  
+
+\item Can define additional functionality for individual arguments, or for all functions matching a pattern.  
+\end{itemize}
+
+
+** Example of AOP
+
+
+
+\begin{verbatim}
+public class Intercept implements MethodInterceptor {
+   @Override
+   public Object invoke(MethodInvocation methodInvocation)
+   {
+    System.out.println(”Entering method : "
+     + methodInvocation.getMethod().getName());
+    System.out.println("Method arguments : "
+     + Arrays.toString(methodInvocation.getArguments()));
+   }
+}
+
+\end{verbatim}
+
+
+
+* Conclusion
+
+** Outline
+\begin{itemize}
+\item Introduction
+
+\item Inversion of Control (IoC)
+
+\item Aspect Oriented Programming (AOP)
+
+\item \framebox{Conclusion}
+
+\end{itemize}
+
+
+** Other features of Spring
+\begin{itemize}
+
+\item Rish unit testing framework.
+
+\item Support for Quartz and Hiberate and other frameworks.
+
+\item Declarative transaction management and other data access support.
+
+\end{itemize}
+
+** Criticism of Spring
+\begin{itemize}
+
+\item{Spring apps need lots of XML.}  %Thus, spring includes all the weaknesses of XML. 
+
+\item{Compile time errors become runtime errors.}
+
+\item{Reduced type safety.  }
+
+\item{Spring is a huge frame.} %150 Mb, 2400 classes in the javadocs
+\end{itemize}
 
 ** Example of DI (step 3: Bean Definition)
 #+begin_src xml
