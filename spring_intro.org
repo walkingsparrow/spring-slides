@@ -211,3 +211,37 @@ public class ShapeTest {
 }
 #+end_src
 
+** Spring and Relational Database
+#+begin_src xml
+<bean class="org.apache.commons.dbcp.BasicDataSource" 
+   id="dataSource">
+    <property name="driverClassName" 
+       value="com.mysql.jdbc.Driver"/>
+    <property name="url" 
+       value="jdbc:mysql://localhost:3306/inventory-db"/>
+    <property name="username" value="myuser"/>
+    <property name="password" value="mypass"/>
+</bean>
+#+end_src
+
+** Spring and Cloud Foundry
+Include the cloud name space
+#+begin_src xml
+<cloud:mongo-db-factory id="mongoDbFactory">
+ 
+<bean id="mongoTemplate" 
+  class="org.springframework.data.mongodb.core.MongoTemplate">
+   <constructor-arg ref="mongoDbFactory"/>
+</bean>
+#+end_src
+
+** Spring and Cloud Foundry (Continued)
+Include a namespace element (an example)
+#+begin_src xml
+<cloud:data-source id="dataSource" />
+ 
+<bean id="jdbcTemplate" 
+  class="org.springframework.jdbc.core.JdbcTemplate">
+  <property name="dataSource" ref="dataSource" />
+</bean>
+#+end_src
