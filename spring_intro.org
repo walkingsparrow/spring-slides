@@ -96,7 +96,8 @@ Why was Spring created?
 - Easier testing
 #+BEAMER: \pause
 - Easier access to other services
-
+#+BEAMER: \pause
+- Enforces modularity and encapsulation
 
 * Dependency Injection
 ** Outline
@@ -335,9 +336,10 @@ public class ShapeTest {
 
 What are cross-cutting concerns?
 \begin{itemize}
+%\pause
 \item{Similar high-level functionality that is part of many functions (such as
 logging or input validation).}
-
+%\pause
 \item{Adding this functionality to each function is cumbersome, causes
 code clutter, and promotes code duplication. }  
 \end{itemize}
@@ -367,7 +369,7 @@ public class C2 {
 
 
 
-** Aspect Oriented Programming AOP
+** Aspect Oriented Programming (AOP)
 Spring can intercept method execution and add additional
 functionality.  
 
