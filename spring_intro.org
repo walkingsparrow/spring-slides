@@ -48,9 +48,16 @@ inversion of control container for the Java platform.
 
 ** Dependency Injection (DI)
 
-Dependency injection is a software design pattern that allows the
-removal of hard-coded dependencies and makes it possible to change
-them, whether at run-time or compile-time. 
+- You have a class, it has a private field (set to null) and you declare
+  a public setter that provides the value for that field. In other
+  words, the dependency of the class (the field) is being injected by an
+  external class (via the setter or contructor). 
+
+#+BEAMER: \pause
+
+- Dependency injection is a software design pattern that allows the
+  removal of hard-coded dependencies and makes it possible to change
+  them, whether at run-time or compile-time. 
 
 ** Example of DI (step 1)
 #+begin_src java
@@ -245,3 +252,14 @@ Include a namespace element (an example)
   <property name="dataSource" ref="dataSource" />
 </bean>
 #+end_src
+
+** Why Spring
+- Spring is a framework that helps you to "wire" different components
+  together. It is most useful in cases where you have a lot of
+  components and you might decide to combine them in different ways, or
+  wish to make it easy to swap out one component for another depending
+  on different settings or environments
+#+BEAMER: \pause
+- Easier testing
+#+BEAMER: \pause
+- Easier access to other services
