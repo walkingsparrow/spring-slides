@@ -28,13 +28,12 @@
 * Introduction
 
 ** Outline
-%To compile in emacs, use the command: C-c, C-e
 \begin{itemize}
 \item\framebox{Introduction}
 
-\item Inversion of Control (IoC)
+\item Dependency Injection/Inversion of Control
 
-\item Aspect Oriented Programming (AOP)
+\item Aspect Oriented Programming
 
 \item Conclusion
 
@@ -87,14 +86,26 @@ Why was Spring created?
 \end{itemize}
 
 
+** [#B] Why Spring
+- Spring is a framework that helps you to "wire" different components
+  together. It is most useful in cases where you have a lot of
+  components and you might decide to combine them in different ways, or
+  wish to make it easy to swap out one component for another depending
+  on different settings or environments
+#+BEAMER: \pause
+- Easier testing
+#+BEAMER: \pause
+- Easier access to other services
+
+
 * Dependency Injection
 ** Outline
 \begin{itemize}
 \item Introduction
 
-\item \framebox{Inversion of Control (IoC)}
+\item \framebox{Dependency Injection/Inversion of Control}
 
-\item Aspect Oriented Programming (AOP)
+\item Aspect Oriented Programming
 
 \item Conclusion
 
@@ -221,127 +232,6 @@ public class Circle extends Shape {
 
 
 
-* Aspect Oriented Programming
-
-** Outline
-\begin{itemize}
-\item Introduction
-
-\item Inversion of Control (IoC)
-
-\item \framebox{Aspect Oriented Programming (AOP)}
-
-\item Conclusion
-
-\end{itemize}
-
-
-
-** Cross-Cutting Concerns
-
-What are cross-cutting concerns?
-\begin{itemize}
-\item{Similar high-level functionality that is part of many functions (such as
-logging or input validation).}
-
-\item{Adding this functionality to each function is cumbersome, causes
-code clutter, and promotes code duplication. }  
-\end{itemize}
-
-
-** Example of Similar Functionality
-
-\begin{verbatim}
-public class C1 {
-   public void setAttributeB(int  a){
-    system.out.println(”Entering method setAttributeB");
-    ...
-    }
-...
-}
-
-public class C2 {
-   public void setAttributeC(int  a){
-    system.out.println("Entering method setAttributeC");
-    ...
-    }
-...
-}
-
-\end{verbatim}
-
-
-
-
-** Aspect Oriented Programming AOP
-Spring can intercept method execution and add additional
-functionality.  
-
-\begin{itemize}
-\item Can add functionality before method execution, after execution, or after thrown exceptions.  
-
-\item Can define additional functionality for individual arguments, or for all functions matching a pattern.  
-\end{itemize}
-
-
-** Example of AOP
-
-
-
-\begin{verbatim}
-public class Intercept implements MethodInterceptor {
-   @Override
-   public Object invoke(MethodInvocation methodInvocation)
-   {
-    System.out.println(”Entering method : "
-     + methodInvocation.getMethod().getName());
-    System.out.println("Method arguments : "
-     + Arrays.toString(methodInvocation.getArguments()));
-   }
-}
-
-\end{verbatim}
-
-
-
-* Conclusion
-
-** Outline
-\begin{itemize}
-\item Introduction
-
-\item Inversion of Control (IoC)
-
-\item Aspect Oriented Programming (AOP)
-
-\item \framebox{Conclusion}
-
-\end{itemize}
-
-
-** Other features of Spring
-\begin{itemize}
-
-\item Rish unit testing framework.
-
-\item Support for Quartz and Hiberate and other frameworks.
-
-\item Declarative transaction management and other data access support.
-
-\end{itemize}
-
-** Criticism of Spring
-\begin{itemize}
-
-\item{Spring apps need lots of XML.}  %Thus, spring includes all the weaknesses of XML. 
-
-\item{Compile time errors become runtime errors.}
-
-\item{Reduced type safety.  }
-
-\item{Spring is a huge frame.} %150 Mb, 2400 classes in the javadocs
-\end{itemize}
-
 ** Example of DI (step 3: Bean Definition)
 #+begin_src xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -424,6 +314,105 @@ public class ShapeTest {
 }
 #+end_src
 
+
+* Aspect Oriented Programming
+
+** Outline
+\begin{itemize}
+\item Introduction
+
+\item Dependency Injection/Inversion of Control
+
+\item \framebox{Aspect Oriented Programming (AOP)}
+
+\item Conclusion
+
+\end{itemize}
+
+
+
+** Cross-Cutting Concerns
+
+What are cross-cutting concerns?
+\begin{itemize}
+\item{Similar high-level functionality that is part of many functions (such as
+logging or input validation).}
+
+\item{Adding this functionality to each function is cumbersome, causes
+code clutter, and promotes code duplication. }  
+\end{itemize}
+
+
+** Example of Similar Functionality
+
+\begin{verbatim}
+public class C1 {
+   public void setAttributeB(int  a){
+    system.out.println(”Entering method setAttributeB");
+    ...
+    }
+...
+}
+
+public class C2 {
+   public void setAttributeC(int  a){
+    system.out.println("Entering method setAttributeC");
+    ...
+    }
+...
+}
+
+\end{verbatim}
+
+
+
+
+** Aspect Oriented Programming AOP
+Spring can intercept method execution and add additional
+functionality.  
+
+\begin{itemize}
+\item Can add functionality before method execution, after execution, or after thrown exceptions.  
+
+\item Can define additional functionality for individual arguments, or for all functions matching a pattern.  
+\end{itemize}
+
+
+** Example of AOP
+
+
+
+\begin{verbatim}
+public class Intercept implements MethodInterceptor {
+   @Override
+   public Object invoke(MethodInvocation methodInvocation)
+   {
+    System.out.println(”Entering method : "
+     + methodInvocation.getMethod().getName());
+    System.out.println("Method arguments : "
+     + Arrays.toString(methodInvocation.getArguments()));
+   }
+}
+
+\end{verbatim}
+
+
+
+* Conclusion
+
+** Outline
+\begin{itemize}
+\item Introduction
+
+\item Dependency Injection/Inversion of Control
+
+\item Aspect Oriented Programming (AOP)
+
+\item \framebox{Conclusion}
+
+\end{itemize}
+
+
 ** Spring and Relational Database
 #+begin_src xml
 <bean class="org.apache.commons.dbcp.BasicDataSource" 
@@ -459,13 +448,29 @@ Include a namespace element (an example)
 </bean>
 #+end_src
 
-** Why Spring
-- Spring is a framework that helps you to "wire" different components
-  together. It is most useful in cases where you have a lot of
-  components and you might decide to combine them in different ways, or
-  wish to make it easy to swap out one component for another depending
-  on different settings or environments
-#+BEAMER: \pause
-- Easier testing
-#+BEAMER: \pause
-- Easier access to other services
+
+** Other features of Spring
+\begin{itemize}
+
+\item Rish unit testing framework.
+
+\item Support for Quartz and Hiberate and other frameworks.
+
+\item Declarative transaction management and other data access support.
+
+\end{itemize}
+
+** Criticism of Spring
+\begin{itemize}
+
+\item{Spring apps need lots of XML.}  %Thus, spring includes all the weaknesses of XML. 
+
+\item{Compile time errors become runtime errors.}
+
+\item{Reduced type safety.  }
+
+\item{Spring is a huge frame.} %150 Mb, 2400 classes in the javadocs
+\end{itemize}
+
+
+
