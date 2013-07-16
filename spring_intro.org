@@ -129,3 +129,85 @@ public class Circle extends Shape {
 }
 #+end_src 
 
+** Example of DI (step 3: Bean Definition)
+#+begin_src xml
+<?xml version="1.0" encoding="UTF-8"?>
+<bean xmlns="http://wwwspringgframework.org/schema/beans"
+  xmlns:xsi="http://www.we.org/2001/XMLSchema-instance"
+  xsl:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="shape1" class="Rectangle">
+  <property name="length" value="10"/>
+  <property name="width" value="20"/>
+</bean>
+
+...
+</beans>
+#+end_src
+
+** Example of DI (step 4)
+#+begin_src java
+public class ShapeList {
+    private List<Shape> shapes;
+    public ShapList (Shape shape) {
+        shapes = Arrays.asList(shape);
+    }
+    public ShapeList (List<Shape> shapes) {
+        this.shapes = shapes;
+    }
+    public List<Shape> getShapes () {
+        return shapes;
+    }
+    public void setShapes (List<Shape> shapes) {
+        this.shapes = shapes;
+    }
+#+end_src
+
+** Example of DI (step 4 continued)
+#+begin_src java
+public double getTotalArea () {
+    double total = 0.0;
+    for (Shape shape : shapes) {
+        total = total + shape.getArea();
+    }
+    return (total);
+}
+#+end_src
+
+** Example of DI (step 5 Bean definition)
+#+begin_src xml
+<?xml version="1.0" encoding="UTF-8"?>
+...
+<bean id="shapeList1" class="ShapeList">
+  <constructor-arg ref="shape1"/>
+</bean>
+<bean id="shapeList2" class="ShapeList">
+  <constructor-arg>
+    <list>
+      <ref local="shape2"/>
+      <bean class="Rectangle">
+        <property name="length" value="10"/>
+        <property name="width" value="5"/>
+      </bean>
+      <bean class="Circle">
+        <constructor-arg value="25"/>
+      </bean>
+    </list>
+  </constructor-arg>
+</bean>
+#+end_src
+
+** Example of DI (step 6 Driver class)
+#+begin_src java
+public class ShapeTest {
+    public static void main (String[] args) {
+        ApplicationContext context = new 
+           ClassPathXmlApplicationContex
+            ("/applicationContext.xml")
+        ShapeList shapes = 
+          (ShapeList) context.getBean("shapeList1");
+    }
+}
+#+end_src
+
