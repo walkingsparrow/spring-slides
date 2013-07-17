@@ -285,7 +285,8 @@ functionality.
     class="com.mkyong.aop.HijackBeforeMethod" />
  
   <bean id="C1Proxy" 
-    class="org.springframework.aop.framework.ProxyFactoryBean">
+    class="org.springframework.aop.framework.
+         ProxyFactoryBean">
  
     <property name="target" ref="C1" />
  
@@ -301,7 +302,8 @@ functionality.
 #+begin_src java
 public class Intercept implements MethodInterceptor {
    @Override
-   public Object invoke(MethodInvocation methodInvocation)
+   public Object invoke(MethodInvocation 
+                          methodInvocation)
    {
     System.out.println(”Entering method : "
      + methodInvocation.getMethod().getName());
