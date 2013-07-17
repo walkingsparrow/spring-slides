@@ -24,21 +24,9 @@
 #+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
 
 #+latex_header: \mode<beamer>{\usetheme{Madrid}}
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
 
 * Introduction
-
-# ** Outline
-# \begin{itemize}
-# \item\framebox{Introduction}
-
-# \item Dependency Injection/Inversion of Control
-
-# \item Aspect Oriented Programming
-
-# \item Conclusion
-
-# \end{itemize}
-
 
 ** Motivation
 - Challenge: A common design pattern is the "big ball of mud".
@@ -48,19 +36,6 @@
   Joseph Yoder
 #+BEAMER: \pause
 - Goal of Spring: Prevent a big ball of mud. 
-
-# ** Motivation
-# Why was Spring created?
-# \begin{itemize}
-
-# \item{Bad design patterns makes code hard to learn, maintain, and change.}
-
-# \item{Bad design patterns are easy to fall into (deadlines, cost, ect). }
-
-# \item{By enforcing the good design patterns, the code is better off in the long term.  } 
-
-# \end{itemize}
-
 
 ** What Spring does
 - Spring is a framework that helps you to "wire" different components
@@ -91,40 +66,22 @@ inversion of control container for the Java platform.
 ** Structure of Spring Framework
 #+begin_center
 #+LaTeX:\includegraphics[width=0.9\textwidth]{/Users/qianh1/workspace/spring/spring_structure.png}
-#+end_cenWhat
+#+end_center
+
 * Dependency Injection
-# ** Outline
-# \begin{itemize}
-# \item Introduction
-
-# \item \framebox{Dependency Injection/Inversion of Control}
-
-# \item Aspect Oriented Programming
-
-# \item Conclusion
-
-# \end{itemize}
-
 
 ** Dependency Injection (DI)
-
 - You have a class, it has a private field (set to null) and you declare
   a public setter that provides the value for that field. In other
   words, the dependency of the class (the field) is being injected by an
   external class (via the setter or contructor). 
-
 #+BEAMER: \pause
-
 - Dependency injection is a software design pattern that allows the
   removal of hard-coded dependencies and makes it possible to change
   them, whether at run-time or compile-time. 
 
-
 ** Example of DI (step 1)
-
-
-
-\begin{verbatim}
+#+begin_src java
 public abstract class Shape {
 
     public abstract double getArea();
@@ -135,17 +92,11 @@ public abstract class Shape {
                           getArea();
     }
 }
-\end{verbatim}
-
-
-
+#+end_src
 
 ** Example of DI (step 2)
-
-
 Concrete class 1
-
-\begin{verbatim}
+#+begin_src java
 public class Rectangular extends Shape {
     private double length, width;
 
@@ -155,16 +106,10 @@ public class Rectangular extends Shape {
         setLength(length);
         setWidth(width);
     }
-\end{verbatim}
-
-
-
+#+end_src
 
 ** Example of DI (step 2 continued)
-
-
-
-\begin{verbatim}
+#+begin_src java
     public double getLength() {
         return (length);
     }
@@ -181,17 +126,11 @@ public class Rectangular extends Shape {
         return (length * width)
     }
 }
-\end{verbatim}
-
-
-
+#+end_src
 
 ** Example of DI (step 2 continued)
-
-
 Concrete class 2
-
-\begin{verbatim}
+#+begin_src java
 public class Circle extends Shape {
     private double radius = 1.0;
 
@@ -200,16 +139,10 @@ public class Circle extends Shape {
     public Circle (double radius) {
         setRadius (radius);
     }
-\end{verbatim}
-
-
-
+#+end_src
 
 ** Example of DI (step 2 continued)
-
-
-
-\begin{verbatim}
+#+begin_src java
     public double getRadius () {
         return (radius);
     }
@@ -222,9 +155,7 @@ public class Circle extends Shape {
         return (Math.PI * radius * radius);
     }
 }
-\end{verbatim}
-
-
+#+end_src
 
 ** Example of DI (step 3: Bean Definition)
 #+begin_src xml
@@ -311,22 +242,7 @@ public class ShapeTest {
 
 * Aspect Oriented Programming
 
-** Outline
-\begin{itemize}
-\item Introduction
-
-\item Dependency Injection/Inversion of Control
-
-\item \framebox{Aspect Oriented Programming (AOP)}
-
-\item Conclusion
-
-\end{itemize}
-
-
-
 ** Cross-Cutting Concerns
-
 What are cross-cutting concerns?
 #+BEAMER: \pause
 - Similar high-level functionality that is part of many functions (such as
@@ -335,11 +251,8 @@ What are cross-cutting concerns?
 - Adding this functionality to each function is cumbersome, causes
   code clutter, and promotes code duplication. 
 
-
-
 ** Example of Similar Functionality
-
-\begin{verbatim}
+#+begin_src java
 public class C1 {
    public void setAttributeB(int  a){
     system.out.println("doEntering method setAttributeB");
@@ -355,11 +268,7 @@ public class C2 {
     }
 ...
 }
-
-\end{verbatim}
-
-
-
+#+end_src
 
 ** Aspect Oriented Programming (AOP)
 Spring can intercept method execution and add additional
@@ -368,8 +277,6 @@ functionality.
 - Can add functionality before method execution, after execution, or after thrown exceptions.  
 
 - Can define additional functionality for individual arguments, or for all functions matching a pattern.  
-
-
 
 ** Example of AOP
 #+begin_src java
@@ -385,22 +292,7 @@ public class Intercept implements MethodInterceptor {
 }
 #+end_src
 
-
-
-* Conclusion
-
-** Outline
-\begin{itemize}
-\item Introduction
-
-\item Dependency Injection/Inversion of Control
-
-\item Aspect Oriented Programming (AOP)
-
-\item \framebox{Conclusion}
-
-\end{itemize}
-
+* Spring and Cloud Foundry
 
 ** Spring and Relational Database
 #+begin_src xml
@@ -437,6 +329,7 @@ Include a namespace element (an example)
 </bean>
 #+end_src
 
+* Conclusion
 
 ** Other features of Spring
 - Rich unit testing framework.
