@@ -38,10 +38,10 @@
 - Goal of Spring: Prevent a big ball of mud. 
 
 ** What Spring does
-- Spring is a framework that helps you to "wire" different components
+- Spring is a framework that helps you "wire" different components
   together. It is most useful in cases where you have a lot of
-  components and you might decide to combine them in different ways, or
-  wish to make it easy to swap out one component for another depending
+  components and you want to combine them in different ways, or
+  wish to make it easy to swap out components depending
   on different settings or environments
 #+BEAMER: \pause
 - Easier testing
@@ -50,7 +50,7 @@
 #+BEAMER: \pause
 - Enforces modularity and encapsulation
   
-** Introduction
+** What Spring is
 The Spring Framework is an open source application framework and
 inversion of control container for the Java platform.
 :PROPERTIES:
@@ -277,6 +277,25 @@ functionality.
 - Can add functionality before method execution, after execution, or after thrown exceptions.  
 
 - Can define additional functionality for individual arguments, or for all functions matching a pattern.  
+
+
+** Example of AOP
+#+begin_src xml
+  <bean id="Intercept" 
+    class="com.mkyong.aop.HijackBeforeMethod" />
+ 
+  <bean id="C1Proxy" 
+    class="org.springframework.aop.framework.ProxyFactoryBean">
+ 
+    <property name="target" ref="C1" />
+ 
+    <property name="interceptorNames">
+      <list>
+        <value>Intercept</value>
+      </list>
+      </property>
+   </bean>
+#+end_src
 
 ** Example of AOP
 #+begin_src java
